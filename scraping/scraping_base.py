@@ -52,7 +52,7 @@ class ScrapingBase:
         """
         time.sleep(self.weit_sec)  # サーバ負荷軽減のため
         try:
-            print(url)
+            print("get: ", self.url)
             res = requests.get(self.url)
             if res.status_code == 200:
                 # 成功
@@ -82,6 +82,9 @@ class ScrapingBase:
 
 
 if __name__=='__main__':
-    url = 'https://kanjitisiki.com/zyouyou/'
-    soup = get_soup_from_url(url)
+    target_url = 'https://kanjitisiki.com/zyouyou/'
+    scraping_base = ScrapingBase(
+        url=target_url
+    )
+    soup = scraping_base.get_soup()
     print(soup)
