@@ -20,12 +20,10 @@ class ScrapingBase:
 
     def get_soup(
         self,
-        parser='html.parser',
-        file_encoding='utf-8'):
+        parser='html.parser'):
         """ urlからBeautifulSoupオブジェクトを取得する
         Args:
             parser (str, optional): パーサー Defaults to 'res.parser'.
-            file_encoding (str, optional): htmlファイルのエンコード. Defaults to 'utf-8'.
 
         Returns:
             [type]: BeautifulSoupオブジェクト
@@ -37,8 +35,7 @@ class ScrapingBase:
             # htmlをbeautifulSoupオブジェクトに変換
             soup = self.parse_html(
                 html=html, 
-                parser=parser,
-                file_encoding=file_encoding)
+                parser=parser)
             return soup
         except:
             raise
@@ -63,7 +60,7 @@ class ScrapingBase:
         except:
             raise Exception("htmlの取得に失敗しました")
 
-    def parse_html(self, html, parser='html.parser', file_encoding='utf-8'):
+    def parse_html(self, html, parser='html.parser'):
         """htmlをパースしBeautifulSoupオブジェクトを返す
         Args:
             html (str): HTMLテキスト
@@ -75,7 +72,7 @@ class ScrapingBase:
             : BeautifulSoup
         """
         try:
-            soup = bs4.BeautifulSoup(html, parser, from_encoding=file_encoding)
+            soup = bs4.BeautifulSoup(html, parser)
             return soup
         except:
             raise ValueError("htmlのパースに失敗しました")
