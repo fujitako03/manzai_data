@@ -2,7 +2,7 @@ import re
 
 import bs4
 
-from scraping_base import ScrapingBase
+from .scraping_base import ScrapingBase
 
 
 class WaraiTextManzai(ScrapingBase):
