@@ -28,3 +28,13 @@ def test_get_neta_type():
     neta_type = wt._get_neta_type()
     
     assert neta_type == '漫才'
+
+def test_get_neta_text():
+    test_url = "https://waraitext.com/post-75/"
+    wt = WaraiTextManzai(
+        url=test_url
+    )
+    neta_text = wt._get_neta_text()
+    print(neta_text)
+    
+    assert neta_text
