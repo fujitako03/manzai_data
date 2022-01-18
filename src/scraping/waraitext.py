@@ -12,8 +12,19 @@ class WaraiTextManzai(ScrapingBase):
         self.page_soup=self.get_soup()
         pass
     
-    def get_page_info(self) -> dict:
-        pass
+    def scraping(self) -> dict:
+        """お笑いテキストからネタ情報を取得する
+
+        Returns:
+            dict: 情報を集約した辞書
+        """
+        page_info = {
+            "neta_type": self._get_neta_type(),
+            "performer": self._get_performer(),
+            "title": self._get_title(),
+            "neta_text": self._get_neta_text(),
+        }
+        return page_info
 
     def _get_neta_type(self) -> str:
         """ネタの種類
