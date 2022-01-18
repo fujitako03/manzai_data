@@ -2,6 +2,15 @@ import pytest
 from src.scraping.waraitext import WaraiTextManzai
 
 
+def test_scraping():
+    test_url = "https://waraitext.com/post-75/"
+    wt = WaraiTextManzai(
+        url=test_url
+    )
+    neta_text = wt.scraping()
+
+    assert neta_text
+
 def test_get_title():
     test_url = "https://waraitext.com/post-75/"
     wt = WaraiTextManzai(
