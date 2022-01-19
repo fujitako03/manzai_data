@@ -1,10 +1,10 @@
 import pytest
-from src.scraping.waraitext import WaraiTextManzai
+from src.scraping.waraitext import WaraiTextScraper
 
 
 def test_scraping():
     test_url = "https://waraitext.com/post-75/"
-    wt = WaraiTextManzai(
+    wt = WaraiTextScraper(
         url=test_url
     )
     neta_text = wt.scraping()
@@ -13,7 +13,7 @@ def test_scraping():
 
 def test_get_title():
     test_url = "https://waraitext.com/post-75/"
-    wt = WaraiTextManzai(
+    wt = WaraiTextScraper(
         url=test_url
     )
     title = wt._get_title()
@@ -22,7 +22,7 @@ def test_get_title():
 
 def test_get_performer():
     test_url = "https://waraitext.com/post-75/"
-    wt = WaraiTextManzai(
+    wt = WaraiTextScraper(
         url=test_url
     )
     manzai_shi = wt._get_performer()
@@ -31,7 +31,7 @@ def test_get_performer():
 
 def test_get_neta_type():
     test_url = "https://waraitext.com/post-75/"
-    wt = WaraiTextManzai(
+    wt = WaraiTextScraper(
         url=test_url
     )
     neta_type = wt._get_neta_type()
@@ -40,7 +40,7 @@ def test_get_neta_type():
 
 def test_get_neta_text():
     test_url = "https://waraitext.com/post-75/"
-    wt = WaraiTextManzai(
+    wt = WaraiTextScraper(
         url=test_url
     )
     neta_text = wt._get_neta_text()

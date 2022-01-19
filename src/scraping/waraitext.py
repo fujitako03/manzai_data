@@ -5,7 +5,7 @@ import bs4
 from .scraping_base import ScrapingBase
 
 
-class WaraiTextManzai(ScrapingBase):
+class WaraiTextScraper(ScrapingBase):
     def __init__(self, url):
         super().__init__(url, weit_sec=1)
         self.url=url
@@ -119,7 +119,7 @@ class WaraiTextManzai(ScrapingBase):
             return p_text
     
 if __name__=='__main__':
-    wt = WaraiTextManzai(
+    wt = WaraiTextScraper(
         url="https://waraitext.com/post-75/"
     )
     wt._get_neta()
