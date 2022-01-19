@@ -1,6 +1,15 @@
 import pytest
-from src.scraping.waraitext import WaraiTextScraper
+from src.scraping.waraitext import WaraiTextCrawler, WaraiTextScraper
 
+
+def test_crawler():
+    wc = WaraiTextCrawler(
+        start_index=75,
+        neta_num=3,
+    )
+    wc.main()
+
+    assert True # TODO 正しくテストに書き換える
 
 def test_scraping():
     test_url = "https://waraitext.com/post-75/"
