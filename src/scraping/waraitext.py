@@ -1,9 +1,64 @@
+import json
 import re
+from datetime import datetime
 
 import bs4
 
 from .scraping_base import ScrapingBase
+from .utils import write_dict_to_json
 
+
+class WaraiTextCrawler:
+    def __init__(
+        self,
+        start_index=100,
+        neta_num=100
+    ) -> None:
+        self.start_index = start_index
+        self.neta_num = neta_num
+        self.url_base = 'https://waraitext.com/'
+        self.output_path = self._make_output_path()
+
+    def main(self):
+        index_list = range(self.start_index, self.start_index + self.neta_num)
+
+        for index in index_list:
+            # urlを生成
+            neta_url = self._make_url(index=index)
+
+            # scrapingを実施
+            scraper = WaraiTextScraper(
+                url=neta_url
+            )
+            neta_info = scraper.scraping()
+            print(neta_info)
+
+            # jsonファイルに出力
+            write_dict_to_json(
+                output_dic=neta_info,
+                file_path=self.output_path,
+            )
+
+    def _make_url(self, index: int) -> str: # TODO ネタかどうかのページ判定ができていない
+        """ネタindexからurlを生成する
+
+        Args:
+            index (int): ネタのindex
+
+        Returns:
+            str: ネタのURL
+        """
+        return f"{self.url_base}post-{str(index)}"
+    
+    def _make_output_path(self) -> str:
+        """現在時刻から出力ファイル名を生成
+
+        Returns:
+            str: outputファイル名
+        """
+        return f'output/waraitext/warai_text_{datetime.now().strftime("%Y%m%d%H%M%S")}.json'
+    
+        
 
 class WaraiTextScraper(ScrapingBase):
     def __init__(self, url):
