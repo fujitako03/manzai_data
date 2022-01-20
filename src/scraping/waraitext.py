@@ -81,7 +81,7 @@ class WaraiTextScraper(ScrapingBase):
             "neta_type": self._get_neta_type(),
             "performer": self._get_performer(),
             "title": self._get_title(),
-            # "neta_text": self._get_neta_text(),
+            "neta_text": self._get_neta_text(),
         }
         return page_info
 
