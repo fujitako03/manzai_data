@@ -31,7 +31,6 @@ class WaraiTextCrawler:
                 url=neta_url
             )
             neta_info = scraper.scraping()
-            print(neta_info)
 
             # jsonファイルに出力
             write_dict_to_json(
@@ -74,6 +73,7 @@ class WaraiTextScraper(ScrapingBase):
             dict: 情報を集約した辞書
         """
         page_info = {
+            "post_id": self._get_post_id(),
             "neta_type": self._get_neta_type(),
             "performer": self._get_performer(),
             "title": self._get_title(),
@@ -81,6 +81,12 @@ class WaraiTextScraper(ScrapingBase):
         }
         return page_info
 
+    def _get_post_id(self) -> str:
+        url =self.page_soup.find("meta", property="og:url").get("content")
+        post_id = url.split("/")[-2]
+
+        return post_id
+        
     def _get_neta_type(self) -> str:
         """ネタの種類
 
@@ -172,6 +178,7 @@ class WaraiTextScraper(ScrapingBase):
 
         else:
             return p_text
+    
     
 if __name__=='__main__':
     wt = WaraiTextScraper(
