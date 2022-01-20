@@ -20,6 +20,15 @@ def test_scraping():
 
     assert neta_text
 
+def test_get_post_id():
+    test_url = "https://waraitext.com/post-75/"
+    wt = WaraiTextScraper(
+        url=test_url
+    )
+    post_id = wt._get_post_id()
+    
+    assert post_id == 'post-75'
+
 def test_get_title():
     test_url = "https://waraitext.com/post-75/"
     wt = WaraiTextScraper(
