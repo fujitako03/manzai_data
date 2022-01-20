@@ -1,10 +1,12 @@
+import json
+
 import pytest
 from src.scraping.waraitext import WaraiTextCrawler, WaraiTextScraper
 
 
 def test_crawler():
     wc = WaraiTextCrawler(
-        start_index=75,
+        start_index=1,
         neta_num=3,
     )
     wc.main()

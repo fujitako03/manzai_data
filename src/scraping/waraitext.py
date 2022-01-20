@@ -1,4 +1,3 @@
-import json
 import re
 from datetime import datetime
 
@@ -26,17 +25,22 @@ class WaraiTextCrawler:
             # urlを生成
             neta_url = self._make_url(index=index)
 
-            # scrapingを実施
-            scraper = WaraiTextScraper(
-                url=neta_url
-            )
-            neta_info = scraper.scraping()
+            try:
+                # scrapingを実施
+                scraper = WaraiTextScraper(
+                    url=neta_url
+                )
+                neta_info = scraper.scraping()
+                print(index, neta_info["post_id"], neta_info["performer"], neta_info["title"])
 
-            # jsonファイルに出力
-            write_dict_to_json(
-                output_dic=neta_info,
-                file_path=self.output_path,
-            )
+                # jsonファイルに出力
+                write_dict_to_json(
+                    output_dic=neta_info,
+                    file_path=self.output_path,
+                )
+            except Exception as err:
+                print(err)
+                print("failed")
 
     def _make_url(self, index: int) -> str: # TODO ネタかどうかのページ判定ができていない
         """ネタindexからurlを生成する
@@ -77,7 +81,7 @@ class WaraiTextScraper(ScrapingBase):
             "neta_type": self._get_neta_type(),
             "performer": self._get_performer(),
             "title": self._get_title(),
-            "neta_text": self._get_neta_text(),
+            # "neta_text": self._get_neta_text(),
         }
         return page_info
 
