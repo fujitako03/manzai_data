@@ -10,7 +10,9 @@ class WaraiTextPreprocess:
     
     def preprocess(self) -> None:
         df_raw = self._read()
+        df_unique = self._distinct(df_raw)
         print(df_raw)
+        print(df_unique)
 
     def _read(self) -> pd.DataFrame:
         """jsonからデータを読み込む
@@ -24,6 +26,19 @@ class WaraiTextPreprocess:
         df = df_raw.copy()
 
         return df
+    
+    def _distinct(self, df_raw: pd.DataFrame) -> pd.DataFrame:
+        """重複を排除する
+
+        Args:
+            df_raw (pd.DataFrame): 重複ありのDF
+
+        Returns:
+            pd.DataFrame: 重複排除したDF
+        """
+        df_unique = df_raw.drop_duplicates().reset_index(drop=True)
+
+        return df_unique
 
 
 if __name__=='__main__':
