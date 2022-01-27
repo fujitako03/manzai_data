@@ -9,6 +9,8 @@ class WaraiTextPreprocess:
         self.data_path = data_path
     
     def preprocess(self) -> None:
+        """rawデータを処理しやすい形に加工する
+        """
         df_raw = self._read()
         df_unique = self._distinct(df_raw)
         print(df_raw)
