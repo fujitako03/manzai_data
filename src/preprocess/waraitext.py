@@ -13,8 +13,7 @@ class WaraiTextPreprocess:
         """
         df_raw = self._read()
         df_unique = self._distinct(df_raw)
-        print(df_raw)
-        print(df_unique)
+        print(df_unique["neta_text"][0])
 
     def _read(self) -> pd.DataFrame:
         """jsonからデータを読み込む
@@ -41,7 +40,23 @@ class WaraiTextPreprocess:
         df_unique = df_raw.drop_duplicates().reset_index(drop=True)
 
         return df_unique
+    
 
+class NetaText:
+    def __init__(
+        self,
+        neta_text: str,
+        neta_type: str,
+    ) -> None:
+        self.neta_text = neta_text
+        self.neta_type = neta_type
+    
+    def preprocess(self):
+        text_list = self._spilt()
+        print(text_list)
+    
+    def _spilt(self):
+        return self.neta_text.split("\n")
 
 if __name__=='__main__':
     warai_text = WaraiTextPreprocess(
