@@ -28,6 +28,23 @@ def test_text_split():
         neta_type=test_neta_type,
     )
 
-    assert nt._spilt() == test_neta_list
+    assert nt._spilt_by_comment() == test_neta_list
+
+
+def test_get_talker():
+    test_neta_type = "漫才"
+    test_neta_text = "石田『井上さん大変です。西高の奴らにうちの学校のズ・グヌンバペペがやられてしまいました』（リアルボケ）\n井上『誰やそいつ』\n石田『ぺぺさんが』（リアルボケ）\n井上『異文化交流とってないから。そこは日本でいこう』（言葉遊びフリ）"
+    test_neta_list = [
+        "石田『井上さん大変です。西高の奴らにうちの学校のズ・グヌンバペペがやられてしまいました』（リアルボケ）",
+        "井上『誰やそいつ』",
+        "石田『ぺぺさんが』（リアルボケ）",
+        "井上『異文化交流とってないから。そこは日本でいこう』（言葉遊びフリ）",
+    ]
+    nt = NetaText(
+        neta_text=test_neta_text,
+        neta_type=test_neta_type,
+    )
+    nt._get_talker(test_neta_list[0]) == test_neta_list
+
 
 

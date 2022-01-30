@@ -1,3 +1,5 @@
+import re
+
 import pandas as pd
 
 
@@ -50,13 +52,22 @@ class NetaText:
     ) -> None:
         self.neta_text = neta_text
         self.neta_type = neta_type
+        self.comment_list = self.neta_text.split("\n")
     
     def preprocess(self):
-        text_list = self._spilt()
+        text_list = self._spilt_by_comment()
         print(text_list)
     
-    def _spilt(self):
+    def _spilt_by_comment(self):
         return self.neta_text.split("\n")
+    
+    @staticmethod
+    def _get_talker(comment):
+        talker_raw = re.findall(r"w+:")
+        if talker_raw:
+            return talker_raw[0][:-1]
+        else:
+            return None
 
 if __name__=='__main__':
     warai_text = WaraiTextPreprocess(
