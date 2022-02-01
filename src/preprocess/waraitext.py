@@ -15,7 +15,8 @@ class WaraiTextPreprocess:
         """
         df_raw = self._read()
         df_unique = self._distinct(df_raw)
-        print(df_unique["neta_text"][0])
+        for nt in df_unique["neta_text"]:
+            print(nt.split("\n")[0])
 
     def _read(self) -> pd.DataFrame:
         """jsonからデータを読み込む
@@ -62,15 +63,50 @@ class NetaText:
         return self.neta_text.split("\n")
     
     @staticmethod
-    def _get_talker(comment):
-        talker_raw = re.findall(r"w+:")
-        if talker_raw:
+    def _get_talker(
+        comment: str
+    ) -> str:
+        """ネタの1センテンスから話者を取得する
+
+        Args:
+            comment (str): ネタの1センテンス
+
+        Returns:
+            str: 話者の名前
+        """
+        colon = re.search(r"：", comment)
+        kakko = re.search(r"『", comment)
+        if (colon) and (not kakko):
+            talker_raw = re.findall(r".+：", comment)
+            return talker_raw[0][:-1]
+        elif (not colon) and (kakko):
+            talker_raw = re.findall(r".+『", comment)
             return talker_raw[0][:-1]
         else:
             return None
 
 if __name__=='__main__':
+    test_neta_type = "漫才"
+    test_neta_text = "石田『井上さん大変です。西高の奴らにうちの学校のズ・グヌンバペペがやられてしまいました』（リアルボケ）\n井上『誰やそいつ』\n石田『ぺぺさんが』（リアルボケ）\n井上『異文化交流とってないから。そこは日本でいこう』（言葉遊びフリ）"
+    test_neta_list = [
+        "石田『井上さん大変です。西高の奴らにうちの学校のズ・グヌンバペペがやられてしまいました』（リアルボケ）",
+        "井上『誰やそいつ』",
+        "石田『ぺぺさんが』（リアルボケ）",
+        "井上『異文化交流とってないから。そこは日本でいこう』（言葉遊びフリ）",
+        "国崎：全、谷村新司に告ぐ（なりきりボケ）"
+    ]
+    nt = NetaText(
+        neta_text=test_neta_text,
+        neta_type=test_neta_type,
+    )
+    for comment in test_neta_list:
+        talker = nt._get_talker(comment)
+        print(talker)
+
+
+    # preprocess
     warai_text = WaraiTextPreprocess(
         data_path="./output/waraitext/warai_text_20220120214525.json"
     )
     warai_text.preprocess()
+
