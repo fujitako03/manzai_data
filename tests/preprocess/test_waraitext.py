@@ -39,12 +39,13 @@ def test_get_talker():
         "井上『誰やそいつ』",
         "石田『ぺぺさんが』（リアルボケ）",
         "井上『異文化交流とってないから。そこは日本でいこう』（言葉遊びフリ）",
+        "国崎：全、谷村新司に告ぐ（なりきりボケ）"
     ]
     nt = NetaText(
         neta_text=test_neta_text,
         neta_type=test_neta_type,
     )
-    nt._get_talker(test_neta_list[0]) == test_neta_list
+    assert nt._get_talker(test_neta_list[0]) == "石田"
 
 
 
