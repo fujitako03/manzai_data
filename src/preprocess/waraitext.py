@@ -63,6 +63,11 @@ class NetaText:
         return self.neta_text.split("\n")
     
     @staticmethod
+    def _remove_symbols(comment):
+        symbols = r"『』："
+        return re.sub(f"[{symbols}]", "", comment)
+    
+    @staticmethod
     def _get_talker(
         comment: str
     ) -> str:
@@ -100,13 +105,13 @@ if __name__=='__main__':
         neta_type=test_neta_type,
     )
     for comment in test_neta_list:
-        talker = nt._get_talker(comment)
+        talker = nt._remove_symbols(comment)
         print(talker)
 
 
-    # preprocess
-    warai_text = WaraiTextPreprocess(
-        data_path="./output/waraitext/warai_text_20220120214525.json"
-    )
-    warai_text.preprocess()
+    # # preprocess
+    # warai_text = WaraiTextPreprocess(
+    #     data_path="./output/waraitext/warai_text_20220120214525.json"
+    # )
+    # warai_text.preprocess()
 
